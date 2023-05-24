@@ -131,9 +131,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="category.h" />
+    <ClInclude Include="cuboid.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="datum.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="smartcube.h" />
     <ClInclude Include="temporary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

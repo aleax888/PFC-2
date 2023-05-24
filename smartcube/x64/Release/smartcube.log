@@ -1,8 +1,86 @@
 ﻿  main.cpp
-C:\Users\Alex\Desktop\smartcube\main.cpp(22,80): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\Alex\Desktop\smartcube\main.cpp(22,79): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\Alex\Desktop\smartcube\data.h(140,6): warning C4244: 'inicializando': conversión de 'float' a 'size_t'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\data.h(137): message : al compilar la función del miembro clase plantilla "void data<float>::generate_random_data_set(float,float,float,numeric,numeric,float (__cdecl data<numeric>::* )(numeric,numeric))"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\smartcube.h(33): message : Vea la referencia a la creación de una instancia de la función plantilla "void data<float>::generate_random_data_set(float,float,float,numeric,numeric,float (__cdecl data<numeric>::* )(numeric,numeric))" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\smartcube.h(30): message : al compilar la función del miembro clase plantilla "smartcube<float>::smartcube(int,int,float,float,float,numeric,numeric)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\main.cpp(22): message : Vea la referencia a la creación de una instancia de la función plantilla "smartcube<float>::smartcube(int,int,float,float,float,numeric,numeric)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\main.cpp(22): message : Vea la referencia a la creación de una instancia de clase plantilla "smartcube<float>" que se está compilando
+C:\Users\Alex\Desktop\smartcube\data.h(141,6): warning C4244: 'inicializando': conversión de 'float' a 'size_t'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\data.h(142,6): warning C4244: 'inicializando': conversión de 'float' a 'size_t'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\data.h(139,24): warning C4101: 's': variable local sin referencia
+C:\Users\Alex\Desktop\smartcube\datum.h(94,1): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\datum.h(93): message : al compilar la función del miembro clase plantilla "void datum<numeric>::set_categorical(std::vector<category,std::allocator<category>>)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\data.h(156): message : Vea la referencia a la creación de una instancia de la función plantilla "void datum<numeric>::set_categorical(std::vector<category,std::allocator<category>>)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\data.h(138): message : Vea la referencia a la creación de una instancia de clase plantilla "datum<numeric>" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\data.h(137): message : al compilar la función del miembro clase plantilla "void data<float>::generate_random_data_set(float,float,float,numeric,numeric,float (__cdecl data<numeric>::* )(numeric,numeric))"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\smartcube.h(33): message : Vea la referencia a la creación de una instancia de la función plantilla "void data<float>::generate_random_data_set(float,float,float,numeric,numeric,float (__cdecl data<numeric>::* )(numeric,numeric))" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\datum.h(116,1): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\datum.h(115): message : al compilar la función del miembro clase plantilla "void datum<numeric>::set_temporal(std::vector<temporary,std::allocator<temporary>>)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\data.h(163): message : Vea la referencia a la creación de una instancia de la función plantilla "void datum<numeric>::set_temporal(std::vector<temporary,std::allocator<temporary>>)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\point.h(168,1): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Alex\Desktop\smartcube\point.h(167): message : al compilar la función del miembro clase plantilla "point<numeric>::point(std::vector<numeric,std::allocator<numeric>>)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\data.h(150): message : Vea la referencia a la creación de una instancia de la función plantilla "point<numeric>::point(std::vector<numeric,std::allocator<numeric>>)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\datum.h(19): message : Vea la referencia a la creación de una instancia de clase plantilla "point<numeric>" que se está compilando
+          with
+          [
+              numeric=float
+          ]
   Generando código
-  3 of 37 functions ( 8.1%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  33 of 358 functions ( 9.2%) were compiled, the rest were copied from previous compilation.
+    9 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   smartcube.vcxproj -> C:\Users\Alex\Desktop\smartcube\x64\Release\smartcube.exe

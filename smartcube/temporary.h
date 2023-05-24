@@ -14,6 +14,7 @@ public:
 	// constructors
 	temporary();
 	temporary(time_t t);
+	temporary(int t);
 	temporary(const temporary &t);
 
 	// overload operators
@@ -51,6 +52,11 @@ temporary::temporary()
 temporary::temporary(time_t t)
 {
 	timer = t;
+}
+
+temporary::temporary(int t)
+{
+	timer = static_cast<time_t>(t);
 }
 
 temporary::temporary(const temporary &t)

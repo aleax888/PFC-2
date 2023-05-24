@@ -7,6 +7,7 @@
 #include <chrono>
 #include <ctime>
 
+#include "smartcube.h"
 #include "data.h"
 #include "datum.h"
 #include "point.h"
@@ -14,13 +15,12 @@
 #include "category.h"
 
 #define data_set_length 5
-#define data_set_dimension 3
+#define data_set_dimension 10
 
 int main()
 {
-	data<float> d(data_set_length, data_set_dimension);
-	d.generate_data_set(0.8, 0.1, 0.1, 0, 100, &data<float>::generate_random_float);
-	//d.print_data_set();
+	smartcube<float> s(data_set_length, data_set_dimension, 0.2, 0.2, 0.6, 0, 100);
+
 	
 	
 	// short int data set

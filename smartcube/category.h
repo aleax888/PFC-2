@@ -28,6 +28,12 @@ public:
 		this->name = c.name;
 		return *this;
 	}
+
+	category& operator=(std::string str)
+	{
+		category c(str);
+		return c;
+	}
 		// comparison
 	bool operator==(const category& c)
 	{
@@ -64,8 +70,7 @@ category::category(std::string n)
 {
 	std::string todigit = "";
 	for (size_t i = 0, s = n.size(); i < s; i++)
-		todigit += std::to_string(int(n[i]));
-	id = stoi(todigit);
+		id += int(n[i]);
 	name = n;
 }
 
