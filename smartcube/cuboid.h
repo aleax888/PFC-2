@@ -2,6 +2,7 @@
 #define CUBOID_H
 
 #include "data.h"
+#include "node.h"
 
 #include <iostream>
 #include <vector>
@@ -12,6 +13,7 @@ class cuboid
 {
 private:
 	data<numeric>* raw_data;
+	node<numeric>* root;
 
 public:
 

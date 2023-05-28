@@ -134,6 +134,7 @@
     <ClInclude Include="cuboid.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="datum.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="smartcube.h" />
     <ClInclude Include="temporary.h" />

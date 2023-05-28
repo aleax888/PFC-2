@@ -14,6 +14,7 @@ class smartcube
 private:
 	data<numeric>* raw_data;
 	std::vector<std::string> posibilities;
+	cuboid<numeric>* current_cuboid;
 
 public:
 	// constructor
