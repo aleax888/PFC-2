@@ -35,6 +35,9 @@ smartcube<numeric>::smartcube(int lenght, int dimension, float a_spatial, float 
 
 	get_posibilities();
 	//for (auto i : posibilities) std::cout << i << std::endl; 
+
+	// create a finest cuboid
+	current_cuboid = new cuboid<numeric>(p[0], raw_data);
 }
 
 // logic -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

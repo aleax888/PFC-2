@@ -4,32 +4,38 @@
 #include "datum.h"
 
 #include <iostream>
+#include <vector>
 
 template<typename numeric>
 class node
 {
 private:
-	point<numeric>* spatial;
-	category* categorical;
-	temporary* temporal;
+	data<numeric>* data_fragment;
 
+	std::vector<node<numeric>*> childs;
 
 public:
 
 	// constructors
-	node(point<numeric>* s, category* c, temporary* t);
+	node(data<numeric>* d);
 
-	// logic
-
+	// setters
+	void add_child(node<numeric>* n);
 };
 
-template<typename numeric>
-node<numeric>::node(point<numeric>* s, category* c, temporary* t)
-{
-	spatial = s;
-	categorical = c;
-	temporal = t;
+// constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+template<typename numeric>
+node<numeric>::node(data<numeric>* d)
+{
+	data_fragment = d;
+}
+
+// setters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+template<typename numeric>
+void node<numeric>::add_child(node<numeric>* n)
+{
+	childs.push_back(n);
 }
 
 

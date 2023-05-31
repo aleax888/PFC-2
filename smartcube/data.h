@@ -33,6 +33,7 @@ public:
 	void set_ld(int l, int d);
 	void set_lenght(int l);
 	void set_dimension(int d);
+	void set_data(datum<numeric>* d);
 	
 	// getters
 	int get_lenght();
@@ -79,8 +80,14 @@ void data<numeric>::set_dimension(int d)
 	dimension = d;
 }
 
+template<typename numeric>
+void data<numeric>::set_data(datum<numeric>* d)
+{
+	data_set = d;
+}
 
-// generators -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+// getters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
 int data<numeric>::get_lenght()
