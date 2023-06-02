@@ -43,33 +43,49 @@ cuboid<numeric>::cuboid(std::string p, data<numeric>* rd)
 template<typename numeric>
 void cuboid<numeric>::index_spatial(node<numeric>*& n)
 {
-	// get a row_data's fragment to assign a node (br)
-	// this method returns between 1 - 4 nodes
+	// get a data's fragment to assign a node (bouding rectangles)
+	
+	std::vector<data<numeric>*> data_fragments;
+
+	// get fragments
+	for (auto& i : n->get_data_fragment())
+	{
+
+	}
+
+	n->set_childs(data_fragments);
 }
 
 template<typename numeric>
 void cuboid<numeric>::index_categorical(node<numeric>*& n)
 {
-	// split a row_data to get diferents categories in each node
-	// this method returns n fragments, where n is amount of categories in row_data
-
+	// split data to get each categories in each node
+	
 	std::vector<data<numeric>*> data_fragments;
 
 	// get fragments
-
-	for (size_t i = 0, s = data_fragments.size(); i < s; i++)
+	for (auto& i : n->get_data_fragment())
 	{
-		node<numeric>* aux = new node<numeric>(data_fragments[i]);
-		n->add_child(aux);
+
 	}
 
+	n->set_childs(data_fragments);
 }
 
 template<typename numeric>
 void cuboid<numeric>::index_temporal(node<numeric>*& n)
 {
-	// split a row_data in intervals of time
-	// this method returns n fragments of n intervals of time we can make
+	// split a data in intervals of time
+	
+	std::vector<data<numeric>*> data_fragments;
+
+	// get fragments
+	for (auto& i : n->get_data_fragment())
+	{
+
+	}
+
+	n->set_childs(data_fragments);
 }
 
 

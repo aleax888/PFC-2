@@ -31,13 +31,13 @@ smartcube<numeric>::smartcube(int lenght, int dimension, float a_spatial, float 
 {
 	raw_data = new data<numeric>(lenght, dimension);
 	raw_data->generate_random_data_set(a_spatial, a_categorical, a_temporal, down, up, &data<float>::generate_random_float);
-	//raw_data->print_data_set();
+	raw_data->print_data_set();
 
 	get_posibilities();
 	//for (auto i : posibilities) std::cout << i << std::endl; 
 
 	// create a finest cuboid
-	current_cuboid = new cuboid<numeric>(p[0], raw_data);
+	current_cuboid = new cuboid<numeric>(posibilities[0], raw_data);
 }
 
 // logic -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

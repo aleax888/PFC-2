@@ -18,24 +18,56 @@ public:
 
 	// constructors
 	node(data<numeric>* d);
+	node(std::vector<datum<numeric>*> d);
 
 	// setters
 	void add_child(node<numeric>* n);
+	void set_childs(std::vector<data<numeric>*> d);
+
+	// getters
+	data<numeric>* get_data_fragment();
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-node<numeric>::node(data<numeric>* d)
+node<numeric>::node(data<numeric>* d) 
 {
 	data_fragment = d;
 }
 
+template<typename numeric>
+node<numeric>::node(std::vector<datum<numeric>*> d)
+{
+	for (size_t i = 0, s = d.size(); i < s; i++)
+	{
+		data_fragment->get_data[i] = d;
+	}
+}
+
 // setters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 template<typename numeric>
 void node<numeric>::add_child(node<numeric>* n)
 {
 	childs.push_back(n);
+}
+
+template<typename numeric>
+void node<numeric>::set_childs(std::vector<data<numeric>*> d)
+{
+	for (auto& i : d)
+	{
+		node<numeric>* aux = new node<numeric>(i);
+		n->add_child(aux);
+	}
+}
+
+// getters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+template<typename numeric>
+data<numeric>* node<numeric>::get_data_fragment()
+{
+	return data_fragment;
 }
 
 

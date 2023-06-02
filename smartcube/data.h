@@ -18,7 +18,7 @@ template<typename numeric>
 class data
 {
 private:
-	datum<numeric> *data_set;
+	datum<numeric> **data_set;
 	int length;
 	int dimension;
 
@@ -33,11 +33,12 @@ public:
 	void set_ld(int l, int d);
 	void set_lenght(int l);
 	void set_dimension(int d);
-	void set_data(datum<numeric>* d);
+	void set_data(datum<numeric>** d);
 	
 	// getters
 	int get_lenght();
 	int get_dimension();
+	datum<numeric>** get_data();
 
 	// generators
 	numeric generate_random_int(numeric down, numeric up);
@@ -81,7 +82,7 @@ void data<numeric>::set_dimension(int d)
 }
 
 template<typename numeric>
-void data<numeric>::set_data(datum<numeric>* d)
+void data<numeric>::set_data(datum<numeric>** d)
 {
 	data_set = d;
 }
@@ -99,6 +100,12 @@ template<typename numeric>
 int data<numeric>::get_dimension()
 {
 	return dimension;
+}
+
+template<typename numeric>
+datum<numeric>** data<numeric>::get_data()
+{
+	return data_set;
 }
 
 // generators -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -142,7 +149,12 @@ std::string data<numeric>::generate_random_string(int size)
 template<typename numeric>
 void data<numeric>::generate_random_data_set(float percentage_s, float percentage_c, float percentage_t, numeric down, numeric up, fp gr)
 {
-	data_set = new datum<numeric>[length];
+	data_set = new datum<numeric>*[length];
+	for (size_t i = 0; i < length; i++) 
+	{
+		data_set[i] = new datum<numeric>();
+	}
+
 	for (size_t i = 0, j, s,
 		s1 = dimension * percentage_s, 
 		s2 = dimension * percentage_c,
@@ -154,20 +166,20 @@ void data<numeric>::generate_random_data_set(float percentage_s, float percentag
 		{
 			p[j] = (this->*gr)(down, up);
 		}
-		data_set[i].set_spatial(point<numeric>(p));
+		data_set[i]->set_spatial(point<numeric>(p));
 		std::vector<category> c(s2);
 		for (j = 0; j < s2; j++)
 		{
 			c[j] = category(generate_random_string(5));
 		}
-		data_set[i].set_categorical(c);
+		data_set[i]->set_categorical(c);
 		std::vector<temporary> t(s3);
 		for (j = 0; j < s3; j++)
 		{
 			//t[j] = temporary(generate_random_int(down, up));
 			t[j] = temporary();
 		}
-		data_set[i].set_temporal(t);
+		data_set[i]->set_temporal(t);
 	}
 }
 
@@ -178,7 +190,7 @@ void data<numeric>::print_data_set()
 {
 	for (size_t i = 0; i < length; i++)
 	{
-		data_set[i].print_datum();
+		data_set[i]->print_datum();
 	}
 }
 #endif DATA_H

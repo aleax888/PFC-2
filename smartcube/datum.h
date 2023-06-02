@@ -42,7 +42,8 @@ public:
 template<typename numeric>
 datum<numeric>::datum()
 {
-
+	categorical = nullptr;
+	temporal = nullptr;
 }
 
 template<typename numeric>
