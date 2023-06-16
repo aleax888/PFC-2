@@ -37,7 +37,8 @@ public:
 		// comparison
 	bool operator==(const category& c)
 	{
-		if (id == c.id)
+		//if (id == c.id)
+		if (name == c.name)
 			return true;
 		return false;
 	}

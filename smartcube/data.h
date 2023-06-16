@@ -2,6 +2,7 @@
 #define DATA_H
 
 #include <iostream>
+#include <vector>
 #include <string>
 #include <type_traits>
 #include <random>
@@ -18,9 +19,7 @@ template<typename numeric>
 class data
 {
 private:
-	datum<numeric> **data_set;
-	int length;
-	int dimension;
+	std::vector<datum<numeric>*> data_set;
 
 public:
 	typedef numeric(data<numeric>::* fp)(numeric, numeric);
@@ -30,21 +29,21 @@ public:
 	data(int l, int d);
 
 	// setters
-	void set_ld(int l, int d);
-	void set_lenght(int l);
-	void set_dimension(int d);
-	void set_data(datum<numeric>** d);
+	void set_data(datum<numeric>* d);
+	void set_data(size_t l, datum<numeric>** d);
+	void set_data(std::vector<datum<numeric>*> d);
 	
 	// getters
 	int get_lenght();
 	int get_dimension();
-	datum<numeric>** get_data();
+	std::vector<datum<numeric>*>* get_data();
 
 	// generators
 	numeric generate_random_int(numeric down, numeric up);
 	numeric generate_random_float(numeric down, numeric up);
 	std::string generate_random_string(int size);
-	void generate_random_data_set(float percentage_s, float percentage_c, float percentage_t, numeric down, numeric up, fp gr);
+	time_t generate_random_date();
+	void generate_random_data_set(size_t l, size_t s, size_t c, numeric down, numeric up, fp gr);
 	
 	// debug
 	void print_data_set();
@@ -55,34 +54,25 @@ public:
 template<typename numeric>
 data<numeric>::data() {}
 
-template<typename numeric>
-data<numeric>::data(int l, int d)
-{
-	length = l;
-	dimension = d;
-}
-
 // setters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 template<typename numeric>
-void data<numeric>::set_ld(int l, int d)
+void data<numeric>::set_data(datum<numeric>* d)
 {
-	length = l, dimension = d;
+	data_set.push_back(d);
 }
 
 template<typename numeric>
-void data<numeric>::set_lenght(int l)
+void data<numeric>::set_data(size_t l, datum<numeric>** d)
 {
-	length = l;
+	data_set.resize(l);
+	for (size_t i = 0; i < l; i++)
+	{
+		data_set[i] = d[i];
+	}
 }
 
 template<typename numeric>
-void data<numeric>::set_dimension(int d)
-{
-	dimension = d;
-}
-
-template<typename numeric>
-void data<numeric>::set_data(datum<numeric>** d)
+void data<numeric>::set_data(std::vector<datum<numeric>*> d)
 {
 	data_set = d;
 }
@@ -93,19 +83,19 @@ void data<numeric>::set_data(datum<numeric>** d)
 template<typename numeric>
 int data<numeric>::get_lenght()
 {
-	return length;
+	return data_set.size();
 }
 
 template<typename numeric>
 int data<numeric>::get_dimension()
 {
-	return dimension;
+	return data_set[0]->get_spatial()->get_dimension() + data_set[0]->get_categorical()->size() + 1;
 }
 
 template<typename numeric>
-datum<numeric>** data<numeric>::get_data()
+std::vector<datum<numeric>*>* data<numeric>::get_data()
 {
-	return data_set;
+	return &data_set;
 }
 
 // generators -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -147,39 +137,41 @@ std::string data<numeric>::generate_random_string(int size)
 }
 
 template<typename numeric>
-void data<numeric>::generate_random_data_set(float percentage_s, float percentage_c, float percentage_t, numeric down, numeric up, fp gr)
+time_t data<numeric>::generate_random_date() 
 {
-	data_set = new datum<numeric>*[length];
-	for (size_t i = 0; i < length; i++) 
+	std::random_device rd;
+	std::mt19937_64 generador(rd());
+
+	// Establecer el rango de tiempo
+	std::uniform_int_distribution<time_t> distribucion(0, std::numeric_limits<time_t>::max());
+
+	return distribucion(generador);
+}
+
+template<typename numeric>
+void data<numeric>::generate_random_data_set(size_t l, size_t s, size_t cs, numeric down, numeric up, fp gr)
+{
+	data_set.resize(l);
+	for (size_t i = 0; i < l; i++) 
 	{
 		data_set[i] = new datum<numeric>();
 	}
 
-	for (size_t i = 0, j, s,
-		s1 = dimension * percentage_s, 
-		s2 = dimension * percentage_c,
-		s3 = dimension * percentage_t
-		; i < length; i++)
+	for (size_t i = 0, j; i < l; i++)
 	{
-		std::vector<numeric> p(s1);
-		for (j = 0; j < s1; j++)
+		std::vector<numeric> p(s);
+		for (j = 0; j < s; j++)
 		{
 			p[j] = (this->*gr)(down, up);
 		}
 		data_set[i]->set_spatial(point<numeric>(p));
-		std::vector<category> c(s2);
-		for (j = 0; j < s2; j++)
+		std::vector<category> c(cs);
+		for (j = 0; j < cs; j++)
 		{
-			c[j] = category(generate_random_string(5));
+			c[j] = category(generate_random_string(1));
 		}
 		data_set[i]->set_categorical(c);
-		std::vector<temporary> t(s3);
-		for (j = 0; j < s3; j++)
-		{
-			//t[j] = temporary(generate_random_int(down, up));
-			t[j] = temporary();
-		}
-		data_set[i]->set_temporal(t);
+		data_set[i]->set_temporal(temporary(generate_random_date()));
 	}
 }
 
@@ -188,7 +180,7 @@ void data<numeric>::generate_random_data_set(float percentage_s, float percentag
 template<typename numeric>
 void data<numeric>::print_data_set()
 {
-	for (size_t i = 0; i < length; i++)
+	for (size_t i = 0, s = data_set.size(); i < s; i++)
 	{
 		data_set[i]->print_datum();
 	}

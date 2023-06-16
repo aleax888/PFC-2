@@ -13,28 +13,48 @@ template<typename numeric>
 class datum
 {
 private:
-	int amount_categorys;
-	int amount_temporarys;
-
 	point<numeric> spatial;
-	category* categorical;
-	temporary* temporal;
+	std::vector<category> categorical;
+	temporary temporal;
 
 public:
 	// constructors
 	datum();
-	datum(point<numeric> p, int ac, category* c, int at, temporary* t);
-	datum(std::vector<numeric> p, std::vector<std::string> c, std::vector<std::time_t> t);
+	datum(point<numeric> p, int ac, category* c, temporary t);
+	datum(std::vector<numeric> p, std::vector<std::string> c, std::time_t t);
 
 	// setters
+	void set_spatial(std::vector<numeric> s);
 	void set_spatial(point<numeric> s);
 	void set_categorical(int ac, category* c);
 	void set_categorical(std::vector<category> c);
-	void set_temporal(int at, temporary* t);
-	void set_temporal(std::vector<temporary> t);
+	void set_temporal(temporary t);
+	
+	// getters
+	point<numeric>* get_spatial();
+	std::vector<category>* get_categorical();
+	temporary* get_temporal();
 
 	// debug
 	void print_datum();
+
+	// overload operators
+		// assignment
+	void operator=(const datum<numeric>& d)
+	{
+		set_spatial(d.spatial);
+		set_categorical(d.categorical);
+		set_temporal(d.temporal);
+	}
+		// output
+	friend std::ostream& operator<<(std::ostream& os, const datum<numeric>& d)
+	{
+		os << d.spatial << std::endl;
+		for (size_t i = 0, s = d.categorical.size(); i < s; ++i)
+			os << d.categorical[i] << std::endl;
+		os << d.temporal << std::endl;
+		return os;
+	}
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -42,35 +62,39 @@ public:
 template<typename numeric>
 datum<numeric>::datum()
 {
-	categorical = nullptr;
-	temporal = nullptr;
+	// ga
 }
 
 template<typename numeric>
-datum<numeric>::datum(point<numeric> p, int ac, category* c, int at, temporary* t)
+datum<numeric>::datum(point<numeric> p, int ac, category* c, temporary t)
 {
 	spatial = p;
-	amount_categorys = ac;
-	categorical = c;
-	amount_temporarys = at;
+	categorical.resize(ac);
+	for (size_t i = 0; i < ac; i++)
+	{
+		categorical[i] = c[i];
+	}
 	temporal = t;
 }
 
 template<typename numeric>
-datum<numeric>::datum(std::vector<numeric> p, std::vector<std::string> c, std::vector<std::time_t> t)
+datum<numeric>::datum(std::vector<numeric> p, std::vector<std::string> c, std::time_t t)
 {
 	spatial = point<numeric>(p);
-	amount_categorys = c.size();
-	categorical = new category[amount_categorys];
-	for (int i = 0; i < amount_categorys; ++i)
+	categorical.resize(c.size());
+	for (size_t i = 0, s = c.size(); i < s; ++i)
 		categorical[i] = category(c[i]);
-	amount_temporarys = t.size();
-	temporal = new temporary[amount_temporarys];
-	for (int i = 0; i < amount_temporarys; ++i)
-		temporal[i] = temporary(t[i]);
+	temporal = temporary(t);
 }
 
+
 // setters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+template<typename numeric>
+void datum<numeric>::set_spatial(std::vector<numeric> s) 
+{
+	spatial = point<numeric>(s);
+}
 
 template<typename numeric>
 void datum<numeric>::set_spatial(point<numeric> s) 
@@ -81,9 +105,8 @@ void datum<numeric>::set_spatial(point<numeric> s)
 template<typename numeric>
 void datum<numeric>::set_categorical(int ac, category* c)
 {
-	amount_categorys = ac;
-	categorical = new category[amount_categorys];
-	for (size_t i = 0; i < amount_categorys; i++)
+	categorical.resize(ac);
+	for (size_t i = 0; i < ac; i++)
 	{
 		categorical[i] = c[i];
 	}
@@ -92,34 +115,32 @@ void datum<numeric>::set_categorical(int ac, category* c)
 template<typename numeric>
 void datum<numeric>::set_categorical(std::vector<category> c)
 {
-	amount_categorys = c.size();
-	categorical = new category[amount_categorys];
-	for (size_t i = 0; i < amount_categorys; i++)
-	{
-		categorical[i] = c[i];
-	}
+	categorical = c;
 }
 
 template<typename numeric>
-void datum<numeric>::set_temporal(int at, temporary* t)
+void datum<numeric>::set_temporal(temporary t)
 {
-	amount_temporarys = at;
-	temporal = new temporary[amount_temporarys];
-	for (size_t i = 0; i < amount_temporarys; i++)
-	{
-		temporal[i] = t[i];
-	}
+	temporal = t;
+}
+
+// getter -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+template<typename numeric>
+point<numeric>* datum<numeric>::get_spatial()
+{
+	return &spatial;
 }
 
 template<typename numeric>
-void datum<numeric>::set_temporal(std::vector<temporary> t)
+std::vector<category>* datum<numeric>::get_categorical()
 {
-	amount_temporarys = t.size();
-	temporal = new temporary[amount_temporarys];
-	for (size_t i = 0; i < amount_temporarys; i++)
-	{
-		temporal[i] = t[i];
-	}
+	return &categorical;
+}
+
+template<typename numeric>
+temporary* datum<numeric>::get_temporal()
+{
+	return &temporal;
 }
 
 // debug -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -128,10 +149,9 @@ template<typename numeric>
 void datum<numeric>::print_datum()
 {
 	std::cout << spatial << std::endl;
-	for (size_t i = 0; i < amount_categorys; ++i)
+	for (size_t i = 0, s = categorical.size(); i < s; ++i)
 		std::cout << categorical[i] << std::endl;
-	for (size_t i = 0; i < amount_temporarys; ++i)
-		std::cout << temporal[i] << std::endl;
+	std::cout << temporal << std::endl;
 }
 
 #endif DATUM_H

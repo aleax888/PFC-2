@@ -26,6 +26,7 @@ public:
 
 	// getters
 	data<numeric>* get_data_fragment();
+	std::vector<node<numeric>*>* get_childs();
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -59,7 +60,8 @@ void node<numeric>::set_childs(std::vector<data<numeric>*> d)
 	for (auto& i : d)
 	{
 		node<numeric>* aux = new node<numeric>(i);
-		n->add_child(aux);
+		if (i->get_lenght())
+			add_child(aux);
 	}
 }
 
@@ -68,6 +70,12 @@ template<typename numeric>
 data<numeric>* node<numeric>::get_data_fragment()
 {
 	return data_fragment;
+}
+
+template<typename numeric>
+std::vector<node<numeric>*>* node<numeric>::get_childs()
+{
+	return &childs;
 }
 
 

@@ -8,8 +8,7 @@ template<typename numeric>
 class point
 {
 private:
-	int dimension;
-	numeric *coordinates;
+	std::vector<numeric> coordinates;
 
 public:
 	// constructors
@@ -25,6 +24,9 @@ public:
 	void set_coordinates(numeric *c);
 	void set_coordinates(std::vector<numeric> c);
 
+	// getters
+	int get_dimension();
+
 	// debug
 	void print_point(bool complete = false);
 
@@ -32,29 +34,29 @@ public:
 		// arithmetic
 	point<numeric> operator+(const point<numeric>& p)
 	{
-		point<numeric> answer(p.dimension);
-		for (size_t i = 0; i < p.dimension; i++)
+		point<numeric> answer(p.coordinates.size());
+		for (size_t i = 0, s = p.coordinates.size(); i < s; i++)
 			answer.set_coordinates(i, coordinates[i] + p.coordinates[i]);
 		return answer;
 	}
 	point<numeric> operator+(numeric k)
 	{
-		point<numeric> answer(dimension);
-		for (size_t i = 0; i < dimension; i++)
+		point<numeric> answer(coordinates.size());
+		for (size_t i = 0, s = coordinates.size(); i < s; i++)
 			answer.set_coordinates(i, coordinates[i] + k);
 		return answer;
 	}
 	point<numeric> operator-(const point<numeric>& p)
 	{
-		point<numeric> answer(p.dimension);
-		for (size_t i = 0; i < p.dimension; i++)
+		point<numeric> answer(p.coordinates.size());
+		for (size_t i = 0, s = p.coordinates.size(); i < s; i++)
 			answer.set_coordinates(i, coordinates[i] - p.coordinates[i]);
 		return answer;
 	}
 	point<numeric> operator-(numeric k)
 	{
-		point<numeric> answer(dimension);
-		for (size_t i = 0; i < dimension; i++)
+		point<numeric> answer(coordinates.size());
+		for (size_t i = 0, s = coordinates.size(); i < s; i++)
 			answer.set_coordinates(i, coordinates[i] - k);
 		return answer;
 	}
@@ -84,7 +86,7 @@ public:
 		// assignment	
 	void operator=(const point<numeric> &p)
 	{
-		set_dimension(p.dimension);
+		set_dimension(p.coordinates.size());
 		set_coordinates(p.coordinates);
 	}
 	point<numeric> operator+=(const point<numeric>& p)
@@ -119,7 +121,7 @@ public:
 		// comparison
 	bool operator==(const point<numeric>& p)
 	{ 
-		for (size_t i = 0; i < dimension; i++)
+		for (size_t i = 0, s = coordinates.size(); i < s; i++)
 			if ((*this)[i] != p[i])
 				return false;
 		return true;
@@ -131,8 +133,8 @@ public:
 		// output
 	friend std::ostream& operator<<(std::ostream& os, const point<numeric>& p)
 	{
-		os << p.dimension << "(" << p[0];
-		for (size_t i = 1; i < p.dimension; i++)
+		os << p.coordinates.size() << "(" << p[0];
+		for (size_t i = 1; i < p.coordinates.size(); i++)
 			os << ", " << p[i];
 		os << ")";
 		return os;
@@ -143,31 +145,26 @@ public:
 template<typename numeric>
 point<numeric>::point()
 {
-	dimension = 0;
-	coordinates = nullptr;
+	// ga
 }
 
 template<typename numeric>
 point<numeric>::point(int d)
 {
-	dimension = d;
-	coordinates = new numeric[dimension];
+	coordinates.resize(d);
 }
 
 template<typename numeric>
 point<numeric>::point(int d, numeric* c)
 {
-	dimension = d;
-	coordinates = new numeric[dimension];
+	coordinates.resize(d);
 	set_coordinates(c);
 }
 
 template<typename numeric>
 point<numeric>::point(std::vector<numeric> c)
 {
-	dimension = c.size();
-	coordinates = new numeric[dimension];
-	set_coordinates(c);
+	coordinates = c;
 }
 
 template<typename numeric>
@@ -180,8 +177,7 @@ point<numeric>::point(const point<numeric> &p)
 template<typename numeric>
 void point<numeric>::set_dimension(int d)
 {
-	dimension = d;
-	coordinates = new numeric[dimension];
+	coordinates.resize(d);
 }
 
 template<typename numeric>
@@ -193,22 +189,28 @@ void point<numeric>::set_coordinates(int index, numeric value)
 template<typename numeric>
 void point<numeric>::set_coordinates(numeric *c)
 {
-	for (size_t i = 0; i < dimension; i++)
+	for (size_t i = 0, s = coordinates.size(); i < s; i++)
 		coordinates[i] = c[i];
 }
 
 template<typename numeric>
 void point<numeric>::set_coordinates(std::vector<numeric> c)
 {
-	for (size_t i = 0; i < dimension; i++)
-		coordinates[i] = c[i];
+	coordinates = c;
+}
+
+// getters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+template<typename numeric>
+int point<numeric>::get_dimension()
+{
+	return coordinates.size();
 }
 
 // debug -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 template<typename numeric>
 void point<numeric>::print_point(bool complete)
 {
-	int limit = complete ? dimension : dimension < 5 ? dimension : 5;
+	int dimension = coordinates.size(), limit = complete ? dimension : dimension < 5 ? dimension : 5;
 	
 	if (complete)
 		std::cout << "dimension: " << dimension << std::endl;

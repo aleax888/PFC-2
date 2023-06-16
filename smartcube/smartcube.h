@@ -18,7 +18,7 @@ private:
 
 public:
 	// constructor
-	smartcube(int lenght, int dimension, float a_spatial, float a_categorical, float a_t, numeric down, numeric up);
+	smartcube(size_t lenght, size_t a_spatial, size_t a_categorica, numeric down, numeric up);
 	
 	// logic
 	void get_posibilities(std::string p = "");
@@ -27,11 +27,11 @@ public:
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-smartcube<numeric>::smartcube(int lenght, int dimension, float a_spatial, float a_categorical, float a_temporal, numeric down, numeric up)
+smartcube<numeric>::smartcube(size_t lenght, size_t a_spatial, size_t a_categorical, numeric down, numeric up)
 {
-	raw_data = new data<numeric>(lenght, dimension);
-	raw_data->generate_random_data_set(a_spatial, a_categorical, a_temporal, down, up, &data<float>::generate_random_float);
-	raw_data->print_data_set();
+	raw_data = new data<numeric>();
+	raw_data->generate_random_data_set(lenght, a_spatial, a_categorical, down, up, &data<float>::generate_random_float);
+	//raw_data->print_data_set();
 
 	get_posibilities();
 	//for (auto i : posibilities) std::cout << i << std::endl; 

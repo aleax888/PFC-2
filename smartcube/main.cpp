@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <string>
 #include <type_traits>
@@ -15,11 +17,10 @@
 #include "category.h"
 
 #define data_set_length 5
-#define data_set_dimension 10
 
 int main()
 {
-	smartcube<float> s(data_set_length, data_set_dimension, 0.2, 0.2, 0.6, 0, 100);
+	smartcube<float> s(data_set_length, 2, 3, 0, 100);
 
 	
 	
