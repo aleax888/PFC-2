@@ -29,8 +29,8 @@ public:
 	bool is_in(std::vector<category>* categories, category target);
 	std::vector<category>* get_all_categories(node<numeric>* n);
 		// to temporal
-	bool is_interval(std::vector<temporary>* tempories, temporary target);
-	std::vector<temporary>* get_all_tempories(node<numeric>* n);
+	bool is_interval(std::vector<int>* tempories, int target);
+	std::vector<int>* get_all_tempories(node<numeric>* n);
 
 	// indexers
 	void index_spatial(node<numeric>*& n);
@@ -51,14 +51,14 @@ cuboid<numeric>::cuboid(std::string p, data<numeric>* rd)
 	//index_categorical(root);
 	index_temporal(root, 2);
 	
-	/*std::cout << "root" << std::endl;
+	std::cout << "root" << std::endl;
 	root->get_data_fragment()->print_data_set();
 	std::cout << "amount childs: " << root->get_childs()->size() << std::endl;
 	for (size_t i = 0; i < root->get_childs()->size(); ++i)
 	{
 		std::cout << "child " << i << std::endl;
 		(*root->get_childs())[i]->get_data_fragment()->print_data_set();
-	}*/
+	}
 }
 
 // logic -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -174,7 +174,7 @@ std::vector<category>* cuboid<numeric>::get_all_categories(node<numeric>* n)
 // temporal
 template<typename numeric>
 
-bool cuboid<numeric>::is_interval(std::vector<temporary>* tempories, temporary target)
+bool cuboid<numeric>::is_interval(std::vector<int>* tempories, int target)
 {
 	for (size_t i = 0, s = tempories->size(); i < s; i++)
 	{
@@ -187,24 +187,27 @@ bool cuboid<numeric>::is_interval(std::vector<temporary>* tempories, temporary t
 }
 
 template<typename numeric>
-std::vector<temporary>* cuboid<numeric>::get_all_tempories(node<numeric>* n)
+std::vector<int>* cuboid<numeric>::get_all_tempories(node<numeric>* n)
 {
-	std::vector<temporary>* tempories = new std::vector<temporary>;
+	std::vector<int>* tempories = new std::vector<int>;
 
 	std::vector<datum<numeric>*>* tmp = n->get_data_fragment()->get_data();
-
-	for (size_t i = 0, s = tmp->size(); i < s; i++)
+	tempories->push_back(((*tmp)[0])->get_temporal()->get_time(&temporary::get_year));
+	
+	for (size_t i = 1, s = tmp->size(); i < s; i++)
 	{
 		temporary* aux = ((*tmp)[i])->get_temporal();
-		std::cout << *aux << std::endl;
+		/*std::cout << *aux << std::endl;
 		std::cout << aux->get_time(&temporary::get_year) << std::endl;
-		/*for (size_t j = 0, st = tempories->size(); j < st; j++)
+		std::cout << aux->get_time(&temporary::get_month) << std::endl;
+		std::cout << aux->get_time(&temporary::get_day) << std::endl;*/
+		for (size_t j = 0, st = tempories->size(); j < st; j++)
 		{
-			if (!is_interval(tempories, (*aux)[j]))
+			if (!is_interval(tempories, aux->get_time(&temporary::get_year)))
 			{
-				tempories->push_back((*aux)[j]);
+				tempories->push_back(aux->get_time(&temporary::get_year));
 			}
-		}*/
+		}
 	}
 
 	return tempories;
@@ -282,22 +285,29 @@ template<typename numeric>
 void cuboid<numeric>::index_temporal(node<numeric>*& n, int deep)
 {
 	// split a data in intervals of time
-	std::vector<temporary>* tmp_t = get_all_tempories(n);
-	//std::vector<data<numeric>*> data_fragments(tmp_t->size());
-	//for (size_t i = 0, s = tmp_t->size(); i < s; i++)
-	//{
-	//	data_fragments[i] = new data<numeric>();
-	//}
+	std::vector<int>* tmp_t = get_all_tempories(n);
+	std::vector<data<numeric>*> data_fragments(tmp_t->size());
+	for (size_t i = 0, s = tmp_t->size(); i < s; i++)
+	{
+		data_fragments[i] = new data<numeric>();
+	}
 
-	//// get fragments
-	//std::vector<datum<numeric>*>* tmp = n->get_data_fragment()->get_data();
+	// get fragments
+	std::vector<datum<numeric>*>* tmp = n->get_data_fragment()->get_data();
 
-	//for (size_t i = 0, st = tmp->size(); i < st; i++)
-	//{
-	//	
-	//}
+	for (size_t i = 0, s = tmp->size(), st = tmp_t->size(); i < s; i++)
+	{
+		temporary* aux = ((*tmp)[i])->get_temporal();
+		for (size_t j = 0; j < st; j++)
+		{
+			if ((*tmp_t)[j] == aux->get_time(&temporary::get_year))
+			{
+				data_fragments[j]->set_data((*tmp)[i]);
+			}
+		}
+	}
 
-	//n->set_childs(data_fragments);
+	n->set_childs(data_fragments);
 }
 
 

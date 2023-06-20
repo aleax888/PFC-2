@@ -143,7 +143,7 @@ time_t data<numeric>::generate_random_date()
 	std::mt19937_64 generador(rd());
 
 	// Establecer el rango de tiempo
-	std::uniform_int_distribution<time_t> distribucion(0, std::numeric_limits<time_t>::max());
+	std::uniform_int_distribution<time_t> distribucion(5.9918e+10, 6.3797e+10);
 
 	return distribucion(generador);
 }
