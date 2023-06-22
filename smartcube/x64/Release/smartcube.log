@@ -14,12 +14,12 @@ C:\Users\Alex\Desktop\smartcube\smartcube.h(31): message : al compilar la funci�
           [
               numeric=float
           ]
-C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de la función plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric,size_t,size_t)" que se está compilando
+C:\Users\Alex\Desktop\smartcube\main.cpp(24): message : Vea la referencia a la creación de una instancia de la función plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric,size_t,size_t)" que se está compilando
           with
           [
               numeric=float
           ]
-C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de clase plantilla "smartcube<float>" que se está compilando
+C:\Users\Alex\Desktop\smartcube\main.cpp(24): message : Vea la referencia a la creación de una instancia de clase plantilla "smartcube<float>" que se está compilando
 C:\Users\Alex\Desktop\smartcube\data.h(146,53): warning C4244: 'argumento': conversión de 'double' a '_Ty'; posible pérdida de datos
           with
           [
@@ -105,8 +105,8 @@ C:\Users\Alex\Desktop\smartcube\smartcube.h(40): message : Vea la referencia a l
               numeric=float
           ]
   Generando código
-  3 of 642 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+  4 of 665 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   smartcube.vcxproj -> C:\Users\Alex\Desktop\smartcube\x64\Release\smartcube.exe

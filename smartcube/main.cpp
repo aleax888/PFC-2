@@ -16,13 +16,17 @@
 #include "temporary.h"
 #include "category.h"
 
-#define data_set_length 5
+#define data_set_length 100000
 
 int main()
 {
+	auto started = std::chrono::high_resolution_clock::now();
+
 	smartcube<float> s(data_set_length, 2, 3, 0, 100, 2, 1);
 
-	
+	auto done = std::chrono::high_resolution_clock::now();
+	std::cout << "Indexing Time: " << std::fixed << std::chrono::duration_cast<std::chrono::milliseconds>(done - started).count() << " milliseconds " << std::endl << std::endl;
+	std::cout << "Indexing Time: " << std::fixed << std::chrono::duration_cast<std::chrono::seconds>(done - started).count() << " seconds " << std::endl << std::endl;
 	
 	// short int data set
 	//point<short int>* data_set; generate_data_set<short int>(data_set, data_set_length, 3, 0, SHRT_MAX, generate_random_int);	print_data_set(data_set, data_set_length);
