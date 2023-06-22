@@ -18,37 +18,38 @@ private:
 
 public:
 	// constructor
-	smartcube(size_t lenght, size_t a_spatial, size_t a_categorica, numeric down, numeric up);
+	smartcube(size_t lenght, size_t a_spatial, size_t a_categorical, numeric down, numeric up, size_t d_spatial, size_t d_temporal);
 	
 	// logic
-	void get_posibilities(std::string p = "");
+	void get_posibilities(size_t s, std::string p = "");
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-smartcube<numeric>::smartcube(size_t lenght, size_t a_spatial, size_t a_categorical, numeric down, numeric up)
+smartcube<numeric>::smartcube(size_t lenght, size_t a_spatial, size_t a_categorical, numeric down, numeric up, size_t d_spatial, size_t d_temporal)
 {
 	raw_data = new data<numeric>();
 	raw_data->generate_random_data_set(lenght, a_spatial, a_categorical, down, up, &data<float>::generate_random_float);
 	//raw_data->print_data_set();
 
-	get_posibilities();
-	//for (auto i : posibilities) std::cout << i << std::endl; 
+	get_posibilities(a_categorical + d_spatial + d_temporal);
+	//for (auto i : posibilities) std::cout << i << std::endl;
 
 	// create a finest cuboid
-	current_cuboid = new cuboid<numeric>(posibilities[0], raw_data);
+	current_cuboid = new cuboid<numeric>(posibilities[0], d_spatial, a_categorical, d_temporal, raw_data);
+	
 }
 
 // logic -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-void smartcube<numeric>::get_posibilities(std::string p)
+void smartcube<numeric>::get_posibilities(size_t s, std::string p)
 {
-	if (p.size() < raw_data->get_dimension())
+	if (p.size() < s)
 	{
-		get_posibilities(p + "1");
-		get_posibilities(p + "0");
+		get_posibilities(s, p + "1");
+		get_posibilities(s, p + "0");
 	}
 	else posibilities.push_back(p);
 }

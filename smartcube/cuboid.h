@@ -8,17 +8,17 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <queue>
 
 template<typename numeric>
 class cuboid
 {
 private:
-	//data<numeric>* raw_data;
 	node<numeric>* root;
 
 public:
 	// constructors
-	cuboid(std::string p, data<numeric>* rd);
+	cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd);
 
 	// logic 
 		// to spatial
@@ -33,15 +33,19 @@ public:
 	std::vector<int>* get_all_tempories(node<numeric>* n);
 
 	// indexers
+	void index_process(node<numeric>*& n, std::string p, size_t d_s, size_t d_c, size_t d_t, size_t index = 0);
 	void index_spatial(node<numeric>*& n);
 	void index_categorical(node<numeric>*& n);
-	void index_temporal(node<numeric>*& n, int deep);
+	void index_temporal(node<numeric>*& n);
+
+	// debug
+	void print_cuboid();
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-cuboid<numeric>::cuboid(std::string p, data<numeric>* rd)
+cuboid<numeric>::cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd)
 {
 	//raw_data = rd;
 	root = new node<numeric>(rd);
@@ -49,16 +53,10 @@ cuboid<numeric>::cuboid(std::string p, data<numeric>* rd)
 	// indexing process
 	//index_spatial(root);
 	//index_categorical(root);
-	index_temporal(root, 2);
-	
-	std::cout << "root" << std::endl;
-	root->get_data_fragment()->print_data_set();
-	std::cout << "amount childs: " << root->get_childs()->size() << std::endl;
-	for (size_t i = 0; i < root->get_childs()->size(); ++i)
-	{
-		std::cout << "child " << i << std::endl;
-		(*root->get_childs())[i]->get_data_fragment()->print_data_set();
-	}
+	//index_temporal(root);
+	index_process(root, p, d_s, d_c, d_t);
+
+	//print_cuboid();
 }
 
 // logic -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -282,7 +280,7 @@ void cuboid<numeric>::index_categorical(node<numeric>*& n)
 }
 
 template<typename numeric>
-void cuboid<numeric>::index_temporal(node<numeric>*& n, int deep)
+void cuboid<numeric>::index_temporal(node<numeric>*& n)
 {
 	// split a data in intervals of time
 	std::vector<int>* tmp_t = get_all_tempories(n);
@@ -308,6 +306,53 @@ void cuboid<numeric>::index_temporal(node<numeric>*& n, int deep)
 	}
 
 	n->set_childs(data_fragments);
+}
+
+template<typename numeric>
+void cuboid<numeric>::index_process(node<numeric>*& n, std::string p, size_t d_s, size_t d_c, size_t d_t, size_t index)
+{
+	std::vector<node<numeric>*>* tmp = n->get_childs();
+	if (d_s > 0)
+	{
+		if (p[index] == '1') index_spatial(n);
+		d_s--;
+	}
+	else if (d_c > 0)
+	{
+		if (p[index] == '1') index_categorical(n);
+		d_c--;
+	}
+	else if (d_t > 0)
+	{
+		if (p[index] == '1') index_temporal(n);
+		d_t--;
+	}
+	if (index < p.size())
+	{
+		for (auto& i : *tmp)
+		{
+			index_process(i, p, d_s, d_c, d_t, index + 1);
+		}
+	}
+}
+
+// indexers -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+template<typename numeric>
+void cuboid<numeric>::print_cuboid()
+{
+	std::queue<node<numeric>*> q;
+	q.push(root);
+	
+	while (!q.empty())
+	{
+		q.front()->print_node();
+		std::vector<node<numeric>*>* tmp = q.front()->get_childs();
+		for (auto& i : *tmp)
+		{
+			q.push(i);
+		}
+		q.pop();
+	}
 }
 
 

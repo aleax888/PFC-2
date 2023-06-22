@@ -27,6 +27,9 @@ public:
 	// getters
 	data<numeric>* get_data_fragment();
 	std::vector<node<numeric>*>* get_childs();
+
+	// debug
+	void print_node();
 };
 
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -78,5 +81,13 @@ std::vector<node<numeric>*>* node<numeric>::get_childs()
 	return &childs;
 }
 
+// getters -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+template<typename numeric>
+void node<numeric>::print_node()
+{
+	std::cout << "begin node" << std::endl;
+	data_fragment->print_data_set();
+	std::cout << "end node" << std::endl;
+}
 
 #endif NODE_H

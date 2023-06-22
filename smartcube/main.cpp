@@ -20,7 +20,7 @@
 
 int main()
 {
-	smartcube<float> s(data_set_length, 2, 3, 0, 100);
+	smartcube<float> s(data_set_length, 2, 3, 0, 100, 2, 1);
 
 	
 	

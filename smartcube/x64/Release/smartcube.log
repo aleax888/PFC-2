@@ -1,21 +1,5 @@
 ﻿  main.cpp
 C:\Users\Alex\Desktop\smartcube\temporary.h(80,15): warning C4244: 'return': conversión de 'time_t' a 'int'; posible pérdida de datos
-C:\Users\Alex\Desktop\smartcube\data.h(92,1): warning C4267: 'return': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Alex\Desktop\smartcube\data.h(91): message : al compilar la función del miembro clase plantilla "int data<float>::get_dimension(void)"
-C:\Users\Alex\Desktop\smartcube\smartcube.h(48): message : Vea la referencia a la creación de una instancia de la función plantilla "int data<float>::get_dimension(void)" que se está compilando
-C:\Users\Alex\Desktop\smartcube\data.h(55): message : al compilar la función del miembro clase plantilla "data<float>::data(void)"
-C:\Users\Alex\Desktop\smartcube\smartcube.h(32): message : Vea la referencia a la creación de una instancia de la función plantilla "data<float>::data(void)" que se está compilando
-C:\Users\Alex\Desktop\smartcube\smartcube.h(31): message : al compilar la función del miembro clase plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric)"
-          with
-          [
-              numeric=float
-          ]
-C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de la función plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric)" que se está compilando
-          with
-          [
-              numeric=float
-          ]
-C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de clase plantilla "smartcube<float>" que se está compilando
 C:\Users\Alex\Desktop\smartcube\data.h(146,65): warning C4244: 'argumento': conversión de 'double' a '_Ty'; posible pérdida de datos
           with
           [
@@ -23,6 +7,19 @@ C:\Users\Alex\Desktop\smartcube\data.h(146,65): warning C4244: 'argumento': conv
           ]
 C:\Users\Alex\Desktop\smartcube\data.h(141): message : al compilar la función del miembro clase plantilla "time_t data<float>::generate_random_date(void)"
 C:\Users\Alex\Desktop\smartcube\data.h(174): message : Vea la referencia a la creación de una instancia de la función plantilla "time_t data<float>::generate_random_date(void)" que se está compilando
+C:\Users\Alex\Desktop\smartcube\data.h(55): message : al compilar la función del miembro clase plantilla "data<float>::data(void)"
+C:\Users\Alex\Desktop\smartcube\smartcube.h(32): message : Vea la referencia a la creación de una instancia de la función plantilla "data<float>::data(void)" que se está compilando
+C:\Users\Alex\Desktop\smartcube\smartcube.h(31): message : al compilar la función del miembro clase plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric,size_t,size_t)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de la función plantilla "smartcube<float>::smartcube(size_t,size_t,size_t,numeric,numeric,size_t,size_t)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\main.cpp(23): message : Vea la referencia a la creación de una instancia de clase plantilla "smartcube<float>" que se está compilando
 C:\Users\Alex\Desktop\smartcube\data.h(146,53): warning C4244: 'argumento': conversión de 'double' a '_Ty'; posible pérdida de datos
           with
           [
@@ -59,35 +56,57 @@ C:\Users\Alex\Desktop\smartcube\smartcube.h(33): message : Vea la referencia a l
           [
               numeric=float
           ]
-C:\Users\Alex\Desktop\smartcube\point.h(206,1): warning C4267: 'return': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Alex\Desktop\smartcube\point.h(205): message : al compilar la función del miembro clase plantilla "int point<numeric>::get_dimension(void)"
-          with
-          [
-              numeric=float
-          ]
-C:\Users\Alex\Desktop\smartcube\data.h(92): message : Vea la referencia a la creación de una instancia de la función plantilla "int point<numeric>::get_dimension(void)" que se está compilando
-          with
-          [
-              numeric=float
-          ]
-C:\Users\Alex\Desktop\smartcube\data.h(91): message : al compilar la función del miembro clase plantilla "int data<float>::get_dimension(void)"
-C:\Users\Alex\Desktop\smartcube\smartcube.h(48): message : Vea la referencia a la creación de una instancia de la función plantilla "int data<float>::get_dimension(void)" que se está compilando
 C:\Users\Alex\Desktop\smartcube\data.h(86,1): warning C4267: 'return': conversión de 'size_t' a 'int'; posible pérdida de datos
 C:\Users\Alex\Desktop\smartcube\data.h(85): message : al compilar la función del miembro clase plantilla "int data<float>::get_lenght(void)"
-C:\Users\Alex\Desktop\smartcube\node.h(63): message : Vea la referencia a la creación de una instancia de la función plantilla "int data<float>::get_lenght(void)" que se está compilando
+C:\Users\Alex\Desktop\smartcube\node.h(66): message : Vea la referencia a la creación de una instancia de la función plantilla "int data<float>::get_lenght(void)" que se está compilando
 C:\Users\Alex\Desktop\smartcube\data.h(60): message : al compilar la función del miembro clase plantilla "void data<float>::set_data(datum<numeric> *)"
           with
           [
               numeric=float
           ]
-C:\Users\Alex\Desktop\smartcube\cuboid.h(305): message : Vea la referencia a la creación de una instancia de la función plantilla "void data<float>::set_data(datum<numeric> *)" que se está compilando
+C:\Users\Alex\Desktop\smartcube\cuboid.h(239): message : Vea la referencia a la creación de una instancia de la función plantilla "void data<float>::set_data(datum<numeric> *)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\cuboid.h(218): message : al compilar la función del miembro clase plantilla "void cuboid<numeric>::index_spatial(node<numeric> *&)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\cuboid.h(317): message : Vea la referencia a la creación de una instancia de la función plantilla "void cuboid<numeric>::index_spatial(node<numeric> *&)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\cuboid.h(313): message : al compilar la función del miembro clase plantilla "void cuboid<numeric>::index_process(node<numeric> *&,std::string,size_t,size_t,size_t,size_t)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\cuboid.h(57): message : Vea la referencia a la creación de una instancia de la función plantilla "void cuboid<numeric>::index_process(node<numeric> *&,std::string,size_t,size_t,size_t,size_t)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\cuboid.h(49): message : al compilar la función del miembro clase plantilla "cuboid<numeric>::cuboid(std::string,size_t,size_t,size_t,data<numeric> *)"
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\smartcube.h(40): message : Vea la referencia a la creación de una instancia de la función plantilla "cuboid<numeric>::cuboid(std::string,size_t,size_t,size_t,data<numeric> *)" que se está compilando
+          with
+          [
+              numeric=float
+          ]
+C:\Users\Alex\Desktop\smartcube\smartcube.h(40): message : Vea la referencia a la creación de una instancia de clase plantilla "cuboid<numeric>" que se está compilando
           with
           [
               numeric=float
           ]
   Generando código
-  1 of 585 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  3 of 642 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   smartcube.vcxproj -> C:\Users\Alex\Desktop\smartcube\x64\Release\smartcube.exe
