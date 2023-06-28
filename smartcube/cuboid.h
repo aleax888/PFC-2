@@ -15,10 +15,11 @@ class cuboid
 {
 private:
 	node<numeric>* root;
+	bool x;
 
 public:
 	// constructors
-	cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd);
+	cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd, bool x = false);
 
 	// logic 
 		// to spatial
@@ -45,8 +46,9 @@ public:
 // constructors -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 template<typename numeric>
-cuboid<numeric>::cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd)
+cuboid<numeric>::cuboid(std::string p, size_t d_s, size_t d_c, size_t d_t, data<numeric>* rd, bool _x)
 {
+	x = _x;
 	//raw_data = rd;
 	root = new node<numeric>(rd);
 
@@ -333,6 +335,11 @@ void cuboid<numeric>::index_process(node<numeric>*& n, std::string p, size_t d_s
 		{
 			index_process(i, p, d_s, d_c, d_t, index + 1);
 		}
+	}
+	else if (index == p.size())
+	{
+		if (x) n->set_xleaft();
+		else n->set_leaft();
 	}
 }
 

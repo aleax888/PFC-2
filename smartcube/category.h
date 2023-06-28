@@ -69,9 +69,11 @@ category::category(long long i, std::string n)
 
 category::category(std::string n)
 {
-	std::string todigit = "";
+	id = 0;
 	for (size_t i = 0, s = n.size(); i < s; i++)
+	{
 		id += int(n[i]);
+	}
 	name = n;
 }
 
